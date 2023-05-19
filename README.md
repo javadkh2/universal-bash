@@ -11,20 +11,27 @@ To use **universal-bash**, simply install it as a dependency in your project by 
 ```shell
 npm install universal-bash
 ```
+in order to make it availabe anywhere, just install the package with "-g" flag.
 
-By default, **universal-bash** utilizes Git Bash, a popular Bash-compatible shell for Windows, as the underlying interpreter. If the system already has bash, **universal-bash** will use it for script execution.
+```shell
+npm install -g universal-bash
+``` 
 
-If bash is not available, **universal-bash** will automatically install [git-bash](https://github.com/git-for-windows/git) as a local dependency to ensure compatibility. However, this behavior can be disabled by setting the `NOT_USE_GLOBAL_BASH` environment variable to `1` during the package installation process.
-
-For example, you can run the following command to install **universal-bash** and force the installation of a local copy of Git Bash:
+By default, **universal-bash** uses Git Bash, a popular bash-compatible shell for Windows, as the underlying interpreter. If the system already has bash, **universal-bash** will use it for script execution. However, this behavior can be disabled by setting the `NOT_USE_GLOBAL_BASH` environment variable to `1` during the package installation process.
 
 ```shell
 NOT_USE_GLOBAL_BASH=1 npm install universal-bash
 ```
 
+If bash is not available, **universal-bash** will automatically install [git-bash](https://github.com/git-for-windows/git) as a local dependency to ensure compatibility. 
+
+For example, you can run the following command to install **universal-bash** and force the installation of a local copy of Git Bash:
+
 ## Usage
 
 Using **universal-bash** is straightforward. Once installed, you can execute Bash scripts on your Windows machine using the `bash` command. The `bash` command is provided by Git Bash, which is utilized by **universal-bash**.
+
+### Global executable
 
 To run a Bash script, open your command prompt or terminal and use the following command:
 
@@ -34,35 +41,25 @@ bash path/to/your/script.sh
 
 Replace `path/to/your/script.sh` with the actual path to your Bash script file.
 
-If you have installed **universal-bash** globally, you can simply run `bash` followed by the path to your script from anywhere on your system.
+### Inside package.json
 
-## Example
+If you have installed the package as a local dependency, Bash will be available inside npm scripts. You only need to add your command to the `package.json` file.
 
-Here's a simple example to demonstrate how to use **universal-bash**:
-
-1. Create a Bash script file named `hello-world.sh` with the following content:
-
-```bash
-#!/bin/bash
-
-echo "Hello, world!"
+```JSON
+{
+  "scripts" : {
+     "myScript" : "bash path/to/your/script.sh"
+  }
+}
 ```
 
-2. Save the file in your project directory.
-
-3. Open your command prompt or terminal and navigate to your project directory.
-
-4. Run the following command to execute the script using **universal-bash**:
+Then you can run the script with the following command:
 
 ```shell
-bash hello-world.sh
+npm run myScript
 ```
 
-You should see the following output:
-
-```
-Hello, world!
-```
+This way, the script will be executable regardless of the operating system when someone clones the project in the future.
 
 ## Contribution
 
